@@ -3,8 +3,13 @@ package com.conductor.testtask.searchengine.server.internalapi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -31,6 +36,15 @@ public class SearchEngineApiController {
         LOGGER.info("START getDocumentByKey for key '{}'", key);
 
         return "TEST";
+    }
+
+    @RequestMapping(value = "/search/documents/{searchString}", method = RequestMethod.GET)
+    public List<String> searchDocuments(@PathVariable("searchString") String searchString) {
+        Objects.requireNonNull(searchString);
+
+        LOGGER.info("START searchDocuments for search string '{}'", searchString);
+
+        return Arrays.asList("First", "Second Item", "Third");
     }
 
     /*@RequestMapping(method = GET, value = "/accounts/list/{tenantId}")

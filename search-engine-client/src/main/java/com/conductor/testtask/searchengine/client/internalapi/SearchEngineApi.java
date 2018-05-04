@@ -6,15 +6,19 @@ import feign.RequestLine;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
+import java.util.List;
+
 public interface SearchEngineApi {
-    /*@RequestLine("POST /put/document/{document}/key/{key}")
-    @Headers("Content-Type: application/x-www-form-urlencoded")*/
+
     @RequestLine("GET /put/document/{document}/key/{key}")
     void putDocumentByKey(@Param("document") String document,
-                          @Param("key") String tenantId);
+                          @Param("key") String key);
 
     @RequestLine("GET /get/document/key/{key}")
-    String getDocumentByKey(@Param("key") String tenantId);
+    String getDocumentByKey(@Param("key") String key);
+
+    @RequestLine("GET /search/documents/{searchString}")
+    List<String> searchDocuments(@Param("searchString") String searchString);
 
     class SearchEngineApiErrorDecoder implements ErrorDecoder {
         final ErrorDecoder delegate;

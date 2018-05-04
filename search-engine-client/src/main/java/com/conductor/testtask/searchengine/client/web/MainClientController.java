@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -22,9 +23,9 @@ public class MainClientController {
     @Autowired
     private SearchEngineService searchEngineService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/index/{document}/key/{key}")
-    public void index(@PathVariable("document") String document,
-                      @PathVariable("key") String key) {
+    @RequestMapping(method = RequestMethod.GET, value = "/put/document/{document}/key/{key}")
+    public void putDocumentByKey(@PathVariable("document") String document,
+                                 @PathVariable("key") String key) {
         Objects.requireNonNull(document);
         Objects.requireNonNull(key);
 
@@ -42,6 +43,17 @@ public class MainClientController {
         String result = searchEngineService.getDocumentByKey(key);
 
         LOGGER.info("IN getDocumentByKey for key '{}'. Document = '{}'.", key, result);
+
+        return result;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/search/{searchString}")
+    public List<String> searchDocuments(@PathVariable("searchString") String searchString) {
+        Objects.requireNonNull(searchString);
+
+        LOGGER.info("IN searchDocuments for string '{}'", searchString);
+
+        List<String> result = searchEngineService.searchDocuments(searchString);
 
         return result;
     }
