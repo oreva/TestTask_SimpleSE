@@ -6,7 +6,7 @@ import feign.RequestLine;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
-import java.util.List;
+import java.util.Set;
 
 public interface SearchEngineApi {
 
@@ -18,7 +18,7 @@ public interface SearchEngineApi {
     String getDocumentByKey(@Param("key") String key);
 
     @RequestLine("GET /search/documents/{searchString}")
-    List<String> searchDocuments(@Param("searchString") String searchString);
+    Set<String> searchDocuments(@Param("searchString") String searchString);
 
     class SearchEngineApiErrorDecoder implements ErrorDecoder {
         final ErrorDecoder delegate;

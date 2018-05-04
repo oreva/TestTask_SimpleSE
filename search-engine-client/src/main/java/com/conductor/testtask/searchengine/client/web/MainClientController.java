@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -29,11 +29,11 @@ public class MainClientController {
         Objects.requireNonNull(document);
         Objects.requireNonNull(key);
 
-        LOGGER.info("START indexing document '{}' by key '{}'", document, key);
+        LOGGER.debug("START indexing document '{}' by key '{}'", document, key);
 
         searchEngineService.putDocumentByKey(document, key);
 
-        LOGGER.info("FINISH indexing document '{}' by key '{}'", document, key);
+        LOGGER.debug("FINISH indexing document '{}' by key '{}'", document, key);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/get/document/key/{key}")
@@ -42,55 +42,17 @@ public class MainClientController {
 
         String result = searchEngineService.getDocumentByKey(key);
 
-        LOGGER.info("IN getDocumentByKey for key '{}'. Document = '{}'.", key, result);
+        LOGGER.debug("IN getDocumentByKey for key '{}'. Document = '{}'.", key, result);
 
         return result;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/search/{searchString}")
-    public List<String> searchDocuments(@PathVariable("searchString") String searchString) {
+    public Set<String> searchDocuments(@PathVariable("searchString") String searchString) {
         Objects.requireNonNull(searchString);
 
-        LOGGER.info("IN searchDocuments for string '{}'", searchString);
+        LOGGER.debug("IN searchDocuments for string '{}'", searchString);
 
-        List<String> result = searchEngineService.searchDocuments(searchString);
-
-        return result;
+        return searchEngineService.searchDocuments(searchString);
     }
-
-    /*@RequestMapping(method = GET, value = "/accounts/list/{tenantId}")
-    public AutotaskAccountListData listAccounts(@PathVariable("tenantId") @Nonnull String tenantId,
-                                                @RequestParam("searchString") String searchString,
-                                                @RequestParam("page") Integer page,
-                                                @RequestParam("reload") boolean reload) {
-        Objects.requireNonNull(tenantId);
-        Objects.requireNonNull(searchString);
-
-        DecryptedTenant tenant = tenantService.findDecryptedAutotaskTenantById(tenantId);
-        if (null != tenant) {
-            Credentials credentials = Credentials.from(tenant);
-            if (reload) {
-                autotaskApiGateway.clearAccountsCache(credentials);
-            }
-            return autotaskApiGateway.searchAccounts(credentials, searchString, page, AUTOTASK_ACCOUNTS_UI_PAGE_SIZE);
-        } else {
-            throw new AutotaskNoCredentialsException();
-        }
-    }*/
-
-
-
-    /*@RequestMapping(method = POST, value = "/atBillingMapping/saveAll")
-    public ValidationResponseData saveAllMappings(
-            @RequestHeader("X-USER-TENANT") String tenantId,
-            @RequestBody @Nonnull ATBillingMappingsListData data) {
-        Objects.requireNonNull(tenantId);
-        Objects.requireNonNull(data);
-
-        ValidationResponseData result = new ValidationResponseData()
-                .withValidationStatus(
-                        autotaskBillingService.saveAllMappings(tenantId, data.getMappings())
-                );
-        return result;
-    }*/
 }
