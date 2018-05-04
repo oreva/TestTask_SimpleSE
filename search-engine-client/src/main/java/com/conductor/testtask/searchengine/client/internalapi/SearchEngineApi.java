@@ -1,18 +1,17 @@
 package com.conductor.testtask.searchengine.client.internalapi;
 
 import com.conductor.testtask.searchengine.client.internalapi.exception.SearchEngineApiException;
+import feign.Param;
 import feign.RequestLine;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
-import java.util.Set;
-
-/**
- * Created by Olga Reva on 10/24/2017.
- */
 public interface SearchEngineApi {
-    @RequestLine("GET /tenant/list/active/ids")
-    Set<String> findAllActiveTenantIds();
+    /*@RequestLine("POST /put/document/{document}/key/{key}")
+    @Headers("Content-Type: application/x-www-form-urlencoded")*/
+    @RequestLine("GET /put/document/{document}/key/{key}")
+    void putDocumentByKey(@Param("document") String document,
+                          @Param("key") String tenantId);
 
     class SearchEngineApiErrorDecoder implements ErrorDecoder {
         final ErrorDecoder delegate;

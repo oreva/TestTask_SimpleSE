@@ -1,7 +1,9 @@
 package com.conductor.testtask.searchengine.client.web;
 
+import com.conductor.testtask.searchengine.client.service.SearchEngineService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +19,20 @@ public class MainClientController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MainClientController.class);
 
+    @Autowired
+    private SearchEngineService searchEngineService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/index/{stringToIndex}")
-    public void index(@PathVariable("stringToIndex") String valueToIndex) {
-        Objects.requireNonNull(valueToIndex);
+    @RequestMapping(method = RequestMethod.GET, value = "/index/{document}/key/{key}")
+    public void index(@PathVariable("document") String document,
+                      @PathVariable("key") String key) {
+        Objects.requireNonNull(document);
+        Objects.requireNonNull(key);
 
-        LOGGER.info("START indexing string '{}'", valueToIndex);
+        LOGGER.info("START indexing document '{}' by key '{}'", document, key);
+
+        searchEngineService.putDocumentByKey(document, key);
+
+        LOGGER.info("FINISH indexing document '{}' by key '{}'", document, key);
     }
 
     /*@RequestMapping(method = GET, value = "/accounts/list/{tenantId}")

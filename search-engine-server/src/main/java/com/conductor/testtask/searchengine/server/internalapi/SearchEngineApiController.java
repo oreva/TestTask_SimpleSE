@@ -3,10 +3,7 @@ package com.conductor.testtask.searchengine.server.internalapi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
@@ -18,11 +15,13 @@ public class SearchEngineApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchEngineApiController.class);
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/index/{stringToIndex}")
-    public void index(@PathVariable("stringToIndex") String valueToIndex) {
-        Objects.requireNonNull(valueToIndex);
+    @RequestMapping(value = "/put/document/{document}/key/{key}", method = RequestMethod.GET)
+    public void putDocumentByKey(@PathVariable("document") String document,
+                      @PathVariable("key") String key) {
+        Objects.requireNonNull(document);
+        Objects.requireNonNull(key);
 
-        LOGGER.info("START indexing string '{}'", valueToIndex);
+        LOGGER.info("START putDocumentByKey for document '{}' and key '{}'", document, key);
     }
 
     /*@RequestMapping(method = GET, value = "/accounts/list/{tenantId}")
