@@ -1,0 +1,13 @@
+*.class
+nohup.out
+target
+.idea/
+*.iml
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+application-dev.properties
+/.classpath
+/.project
