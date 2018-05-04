@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Set;
 
@@ -54,5 +55,15 @@ public class MainClientController {
         LOGGER.debug("IN searchDocuments for string '{}'", searchString);
 
         return searchEngineService.searchDocuments(searchString);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/insertTestData")
+    public void searchDocuments() {
+        searchEngineService.insertTestData();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getAll")
+    public HashMap<String, String> getAllData() {
+        return searchEngineService.getAllData();
     }
 }

@@ -1,5 +1,6 @@
 package com.conductor.testtask.searchengine.server.core;
 
+import com.google.common.collect.Sets;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -65,12 +66,15 @@ public class TokenAndKeyIndex {
     public Set<String> getKeysByDocumentForOrClause(String document) {
         Objects.requireNonNull(document);
 
-        Set<String> resultSet = new HashSet<>();
+        Set<String> resultSet = null;
 
         String[] tokens = splitDocumentToTokens(document);
         for (String token: tokens) {
             Set<String> keys = getKeysByToken(token);
             if (null != keys) {
+                if (null == resultSet) {
+                    resultSet = Sets.newHashSet();
+                }
                 resultSet.addAll(keys);
             }
         }

@@ -1,5 +1,6 @@
 package com.conductor.testtask.searchengine.server.core;
 
+import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -16,5 +17,9 @@ public class DocumentsByKeyStorage {
 
     public String getDocumentByKey(String key) {
         return internalStorage.get(key);
+    }
+
+    public HashMap<String, String> getAll() {
+        return Maps.newHashMap(internalStorage);
     }
 }
