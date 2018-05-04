@@ -24,6 +24,15 @@ public class SearchEngineApiController {
         LOGGER.info("START putDocumentByKey for document '{}' and key '{}'", document, key);
     }
 
+    @RequestMapping(value = "/get/document/key/{key}", method = RequestMethod.GET)
+    public String getDocumentByKey(@PathVariable("key") String key) {
+        Objects.requireNonNull(key);
+
+        LOGGER.info("START getDocumentByKey for key '{}'", key);
+
+        return "TEST";
+    }
+
     /*@RequestMapping(method = GET, value = "/accounts/list/{tenantId}")
     public AutotaskAccountListData listAccounts(@PathVariable("tenantId") @Nonnull String tenantId,
                                                 @RequestParam("searchString") String searchString,

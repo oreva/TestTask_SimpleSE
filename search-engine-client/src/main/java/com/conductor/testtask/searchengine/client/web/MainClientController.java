@@ -35,6 +35,17 @@ public class MainClientController {
         LOGGER.info("FINISH indexing document '{}' by key '{}'", document, key);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/get/document/key/{key}")
+    public String getDocumentByKey(@PathVariable("key") String key) {
+        Objects.requireNonNull(key);
+
+        String result = searchEngineService.getDocumentByKey(key);
+
+        LOGGER.info("IN getDocumentByKey for key '{}'. Document = '{}'.", key, result);
+
+        return result;
+    }
+
     /*@RequestMapping(method = GET, value = "/accounts/list/{tenantId}")
     public AutotaskAccountListData listAccounts(@PathVariable("tenantId") @Nonnull String tenantId,
                                                 @RequestParam("searchString") String searchString,

@@ -13,6 +13,9 @@ public interface SearchEngineApi {
     void putDocumentByKey(@Param("document") String document,
                           @Param("key") String tenantId);
 
+    @RequestLine("GET /get/document/key/{key}")
+    String getDocumentByKey(@Param("key") String tenantId);
+
     class SearchEngineApiErrorDecoder implements ErrorDecoder {
         final ErrorDecoder delegate;
 

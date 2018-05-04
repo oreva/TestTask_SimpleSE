@@ -18,4 +18,10 @@ public class SearchEngineService {
 
         internalApi.getSearchEngineApi().putDocumentByKey(document, key);
     }
+
+    public String getDocumentByKey(String key) {
+        Objects.requireNonNull(key);
+
+        return internalApi.getSearchEngineApi().getDocumentByKey(key);
+    }
 }
