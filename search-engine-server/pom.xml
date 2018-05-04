@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.conductor.testtask</groupId>
-    <artifactId>search-engine-client</artifactId>
-    <name>search-engine-client</name>
-    <description>Simple Search Engine Client</description>
+    <artifactId>search-engine-server</artifactId>
+    <name>search-engine-server</name>
+    <description>Simple Search Engine Server</description>
     <packaging>jar</packaging>
     <version>1.0.0-SNAPSHOT</version>
 
